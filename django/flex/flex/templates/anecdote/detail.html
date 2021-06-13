@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{{anecdote.anecdote_title}}{% endblock %}
+
+{% block content %}
+
+<h2>{{anecdote.anecdote_title}}</h2>
+<p>{{anecdote.anecdote_text}}</p>
+<em>{{anecdote.pub_date}}</em>
+
+<hr>
+
+{% if latest_comments_list %}
+    {% for c in latest_comments_list%}
+    <p>
+        <strong>{{c.author_name}}</strong>
+        <p>{{c.comment_text}}</p>
+    </p>
+    {% endfor %}
+
+{%else %}
+Комментарии не найдены!
+{%endif%}
+<hr>
+<form action="{% url 'anecdote:leave_comment' anecdote.id %}" method="POST">
+{% csrf_token %}
+<input type="text" required placeholder = "Ваше имя" name="name"><br>
+<textarea name = "text" required = "" placeholder="Текст комментария" cols="30" rows = "10"></textarea><br>
+<button type= "submit">Оставить комментарий</button>
+</form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Последние анекдоты{% endblock %}
+
+{% block content %}
+
+  {% if latest_anecdote_list %}
+
+        {% for a in latest_anecdote_list %}
+            <a href="{url 'anecdote:detail' a.id %}"{{a.anecdote_title}}</a>
+        {% endfor %}
+  {% else %}
+     Статьи не найдены
+  {% endif %}
+
+{% endblock %}
